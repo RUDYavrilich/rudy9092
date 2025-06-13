@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>💀 النظام تحت السيطرة</title>
+  <style>
+    body {
+      background-color: black;
+      color: red;
+      text-align: center;
+      font-family: 'Courier New', monospace;
+      animation: shake 0.3s infinite;
+    }
+
+    @keyframes shake {
+      0% { transform: translate(1px, 1px); }
+      25% { transform: translate(-2px, -3px); }
+      50% { transform: translate(3px, 2px); }
+      75% { transform: translate(-1px, -2px); }
+      100% { transform: translate(1px, 2px); }
+    }
+  </style>
+</head>
+<body>
+  <h1>🔥 جاري اختراق النظام...</h1>
+
+  <!-- الأصوات -->
+  <audio id="startSound" src="https://cdn.pixabay.com/download/audio/2021/08/04/audio_6f1c8b6f3e.mp3?filename=creepy-sound-1-10169.mp3" preload="auto"></audio>
+  <audio id="scream1" src="https://cdn.pixabay.com/download/audio/2021/08/04/audio_6f1c8b6f3e.mp3?filename=creepy-sound-1-10169.mp3" preload="auto"></audio>
+  <audio id="scream2" src="https://cdn.pixabay.com/download/audio/2021/08/04/audio_6f1c8b6f3e.mp3?filename=creepy-sound-1-10169.mp3" preload="auto"></audio>
+
+  <script>
+    const scaryTexts = [
+      "تم اختراق النظام!",
+      "لا مهرب...",
+      "التحكم الكامل انتقل إلينا.",
+      "تأخر الوقت!",
+      "نراك الآن...",
+      "أنت تحت المراقبة"
+    ];
+
+    const scaryImages = [
+      "https://images.pexels.com/photos/619419/pexels-photo-619419.jpeg",
+      "https://cdn.pixabay.com/photo/2017/01/06/19/15/horror-1952290_960_720.jpg",
+      "https://cdn.pixabay.com/photo/2017/01/06/19/15/horror-1952291_960_720.jpg",
+      "https://cdn.pixabay.com/photo/2017/01/06/19/15/horror-1952292_960_720.jpg"
+    ];
+
+    function getRandomInt(min, max) {
+      return Math.floor(Math.random() * (max - min) + min);
+    }
+
+    function playRandomScream() {
+      const sounds = ['scream1', 'scream2'];
+      const sound = document.getElementById(sounds[getRandomInt(0, sounds.length)]);
+      sound.play();
+    }
+
+    function openRandomWindow(i) {
+      const screenW = screen.availWidth;
+      const screenH = screen.availHeight;
+      const width = getRandomInt(300, 500);
+      const height = getRandomInt(300, 500);
+      const left = getRandomInt(0, screenW - width);
+      const top = getRandomInt(0, screenH - height);
+
+      const win = window.open("", "", `width=${width},height=${height},left=${left},top=${top}`);
+      if (!win) return;
+
+      win.document.body.style.margin = "0";
+      win.document.body.style.background = "black";
+      win.document.body.style.color = "red";
+      win.document.title = "👁️‍🗨️";
+
+      if (Math.random() > 0.5) {
+        const img = scaryImages[getRandomInt(0, scaryImages.length)];
+        win.document.body.innerHTML = `<img src="${img}" style="width:100%;height:100%;object-fit:cover;">`;
+      } else {
+        const text = scaryTexts[getRandomInt(0, scaryTexts.length)];
+        win.document.body.innerHTML = `<div style="display:flex;justify-content:center;align-items:center;height:100%;font-size:28px;">${text}</div>`;
+      }
+
+      if (Math.random() > 0.3) playRandomScream();
+    }
+
+    function startMadness() {
+      document.getElementById("startSound").play();
+
+      let i = 0;
+      const maxWindows = 500000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000; // غيّري الرقم ده لو عايزة أكتر
+
+      const interval = setInterval(() => {
+        if (i >= maxWindows) {
+          clearInterval(interval);
+        } else {
+          openRandomWindow(i);
+          i++;
+        }
+      }, 0.10); // افتح كل نافذة كل 100 ملي ثانية
+    }
+
+    // شغّلي الجنون تلقائي بعد تحميل الصفحة
+    window.onload = () => {
+      setTimeout(startMadness, 0.10); // يبدأ بعد نصف ثانية
+    }
+  </script>
+</body>
+</html>
